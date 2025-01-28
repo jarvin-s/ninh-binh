@@ -1,6 +1,6 @@
 export interface Product {
     id: string
-    price: number | { small?: number; big?: number }
+    price: number
     translations: {
         en: {
             name: string
@@ -71,19 +71,30 @@ export const products: Product[] = [
         },
     },
     {
-        id: 'chicken-rice',
-        price: {
-            small: 65000,
-            big: 75000,
-        },
+        id: 'chicken-rice-small',
+        price: 65000,
         translations: {
             en: {
-                name: 'Chicken rice',
-                description: 'Steamed rice with roasted chicken, served with special sauce',
+                name: 'Chicken rice (small)',
+                description: 'Small portion of chicken rice',
             },
             vn: {
-                name: 'Cơm đùi gà',
-                description: 'Cơm với gà quay, kèm nước sốt đặc biệt',
+                name: 'Cơm gà (nhỏ)',
+                description: 'Phần cơm gà nhỏ',
+            },
+        },
+    },
+    {
+        id: 'chicken-rice-big',
+        price: 75000,
+        translations: {
+            en: {
+                name: 'Chicken rice (big)',
+                description: 'Big portion of chicken rice',
+            },
+            vn: {
+                name: 'Cơm gà (lớn)',
+                description: 'Phần cơm gà lớn',
             },
         },
     },
@@ -102,19 +113,30 @@ export const products: Product[] = [
         },
     },
     {
-        id: 'beef-stir-fried-noodle',
-        price: {
-            small: 70000,
-            big: 100000,
-        },
+        id: 'beef-stir-fried-noodle-small',
+        price: 70000,
         translations: {
             en: {
-                name: 'Beef stir fried noodle',
-                description: 'Rice noodles stir-fried with tender sliced beef and vegetables',
+                name: 'Beef stir fried noodle (small)',
+                description: 'Small portion of beef stir fried noodle',
             },
             vn: {
-                name: 'Mì xào bò',
-                description: 'Mì xào với thịt bò và rau củ',
+                name: 'Mì xào bò (nhỏ)',
+                description: 'Phần mì xào bò nhỏ',
+            },
+        },
+    },
+    {
+        id: 'beef-stir-fried-noodle-big',
+        price: 85000,
+        translations: {
+            en: {
+                name: 'Beef stir fried noodle (big)',
+                description: 'Big portion of beef stir fried noodle',
+            },
+            vn: {
+                name: 'Mì xào bò (lớn)',
+                description: 'Phần mì xào bò lớn',
             },
         },
     },

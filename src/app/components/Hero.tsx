@@ -180,20 +180,7 @@ const Hero = () => {
               </div>
               <div className='flex flex-col items-center gap-2 md:flex-row md:gap-4'>
                 <div className='text-center text-base md:w-40 md:text-right md:text-lg'>
-                  {typeof product.price === 'number' ? (
-                    `${product.price.toLocaleString()}đ`
-                  ) : (
-                    <div className='flex flex-col items-center gap-1 md:items-end'>
-                      <div>
-                        {locale === 'en' ? 'Small' : 'Nhỏ'}:{' '}
-                        {product.price.small?.toLocaleString()}đ
-                      </div>
-                      <div>
-                        {locale === 'en' ? 'Big' : 'Lớn'}:{' '}
-                        {product.price.big?.toLocaleString()}đ
-                      </div>
-                    </div>
-                  )}
+                  {product.price.toLocaleString()}đ
                 </div>
                 <div className='flex items-center gap-2'>
                   <button
@@ -227,7 +214,7 @@ const Hero = () => {
         )}
 
         {Object.keys(orderItems).length > 0 && (
-          <div className='mt-4 w-full text-center md:w-auto'>
+          <div className='w-full text-center md:w-auto'>
             <h2 className='text-lg font-bold md:text-xl'>
               {t('order_summary')}
             </h2>
@@ -243,8 +230,8 @@ const Hero = () => {
                       locale as keyof typeof product.translations
                     ].name
                   }
-                  {typeof product.price !== 'number' &&
-                    ` (${orderItems[product.id]}x)`}
+
+                  {` (${orderItems[product.id]}x)`}
                 </div>
               ))}
             <div className='mt-2 text-lg font-bold md:text-xl'>

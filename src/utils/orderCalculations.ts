@@ -6,6 +6,6 @@ export const calculateTotal = (orderItems: { [key: string]: number }) => {
         if (typeof product.price === 'number') {
             return total + product.price * quantity
         }
-        return total + (product.price.small || 0) * quantity
+        return total + (product.price || 0) * quantity
     }, 0)
 }
