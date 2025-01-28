@@ -6,6 +6,7 @@ import LanguageSwitcher from './LanguageSwitcher'
 import { products } from '@/lib/products'
 import { useOrder } from '@/hooks/useOrder'
 import { calculateTotal } from '@/utils/orderCalculations'
+import Image from 'next/image'
 
 const Hero = () => {
   const t = useTranslations('Hero')
@@ -57,7 +58,7 @@ const Hero = () => {
           </button>
           <button
             onClick={() => setFilter('food')}
-            className={`flex items-center gap-1 rounded-full px-6 py-3 text-lg ${
+            className={`flex flex-col items-center gap-1 rounded-full px-6 py-3 text-lg md:flex-row ${
               filter === 'food'
                 ? 'bg-gray-900 text-white hover:bg-gray-700'
                 : 'border border-gray-900 bg-white text-gray-900 hover:bg-gray-200'
@@ -105,7 +106,7 @@ const Hero = () => {
           </button>
           <button
             onClick={() => setFilter('drinks')}
-            className={`flex items-center gap-1 rounded-full px-6 py-3 text-lg ${
+            className={`flex flex-col items-center gap-1 rounded-full px-6 py-3 text-lg md:flex-row ${
               filter === 'drinks'
                 ? 'bg-gray-900 text-white hover:bg-gray-700'
                 : 'border border-gray-900 bg-white text-gray-900 hover:bg-gray-200'
@@ -165,40 +166,48 @@ const Hero = () => {
           </button>
         </div>
 
-        <div className='flex w-full flex-col gap-4'>
+        <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
           {filteredProducts.map((product) => (
             <div
               key={product.id}
-              className='flex w-full flex-col items-center justify-between gap-2 md:flex-row md:gap-4'
+              className='flex flex-col items-center justify-between gap-2 rounded-lg border p-4 shadow-md'
             >
-              <div className='text-center text-lg font-bold md:text-left md:text-xl'>
+              <div className='text-center text-lg font-bold'>
                 {
                   product.translations[
                     locale as keyof typeof product.translations
                   ].name
                 }
               </div>
-              <div className='flex flex-col items-center gap-2 md:flex-row md:gap-4'>
-                <div className='text-center text-base md:w-40 md:text-right md:text-lg'>
-                  {product.price.toLocaleString()}đ
-                </div>
-                <div className='flex items-center gap-2'>
-                  <button
-                    onClick={() => updateQuantity(product.id, -1)}
-                    className='rounded bg-red-500 px-2 py-1 text-white hover:bg-red-900'
-                  >
-                    -
-                  </button>
-                  <span className='w-6 text-center'>
-                    {orderItems[product.id] || 0}
-                  </span>
-                  <button
-                    onClick={() => updateQuantity(product.id, 1)}
-                    className='rounded bg-green-500 px-2 py-1 text-white hover:bg-green-700'
-                  >
-                    +
-                  </button>
-                </div>
+              <div className='text-center text-base'>
+                {product.price.toLocaleString()}đ
+              </div>
+              <div className='flex items-center gap-2'>
+                <button
+                  onClick={() => updateQuantity(product.id, -1)}
+                  className='rounded bg-red-500 px-4 py-2 text-white hover:bg-red-900'
+                >
+                  <Image
+                    src='/icons/minus.svg'
+                    alt='Minus'
+                    width={24}
+                    height={24}
+                  />
+                </button>
+                <span className='mr-1 flex w-6 justify-center text-2xl font-bold'>
+                  {orderItems[product.id] || 0}
+                </span>
+                <button
+                  onClick={() => updateQuantity(product.id, 1)}
+                  className='rounded bg-green-700 px-4 py-2 text-white hover:bg-green-900'
+                >
+                  <Image
+                    src='/icons/plus.svg'
+                    alt='Plus'
+                    width={24}
+                    height={24}
+                  />
+                </button>
               </div>
             </div>
           ))}
@@ -212,34 +221,43 @@ const Hero = () => {
             {t('reset_order')}
           </button>
         )}
-
-        {Object.keys(orderItems).length > 0 && (
-          <div className='w-full text-center md:w-auto'>
-            <h2 className='text-lg font-bold md:text-xl'>
-              {t('order_summary')}
-            </h2>
-            {products
-              .filter((product) => orderItems[product.id])
-              .map((product) => (
-                <div
-                  key={`summary-${product.id}`}
-                  className='text-sm md:text-base'
-                >
-                  {
-                    product.translations[
-                      locale as keyof typeof product.translations
-                    ].name
-                  }
-
-                  {` (${orderItems[product.id]}x)`}
-                </div>
-              ))}
-            <div className='mt-2 text-lg font-bold md:text-xl'>
-              {t('total')}: {calculateTotal(orderItems).toLocaleString()}đ
-            </div>
-          </div>
-        )}
       </div>
+      {Object.keys(orderItems).length > 0 && (
+        <div className='w-full text-center md:w-auto'>
+          <h2 className='text-lg font-bold md:text-xl'>{t('order_summary')}</h2>
+          {products
+            .filter((product) => orderItems[product.id])
+            .map((product) => (
+              <div
+                key={`summary-${product.id}`}
+                className='text-sm md:text-base'
+              >
+                {
+                  product.translations[
+                    locale as keyof typeof product.translations
+                  ].name
+                }
+
+                {` (${orderItems[product.id]}x)`}
+              </div>
+            ))}
+          <div className='fixed bottom-0 flex w-full flex-col items-center gap-4 border-t border-gray-300 bg-white p-4 shadow-lg'>
+            <h1 className='text-xl font-bold md:text-2xl'>
+              {t('total')}:{' '}
+              <span className='text-green-600'>
+                {calculateTotal(orderItems).toLocaleString()}đ
+              </span>
+            </h1>
+            <hr className='w-full border-t border-gray-200' />
+            <button
+              onClick={resetOrder}
+              className='w-full rounded bg-red-600 px-6 py-3 text-lg font-medium text-white hover:bg-red-700 md:w-auto'
+            >
+              {t('reset_order')}
+            </button>
+          </div>
+        </div>
+      )}
     </>
   )
 }
