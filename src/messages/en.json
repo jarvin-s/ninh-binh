@@ -1,0 +1,9 @@
+{
+  "Hero": {
+    "title": "Ninh Bình Restaurant",
+    "description": "Ninh Bình Restaurant is a restaurant specializing in Ninh Bình cuisine, loved and highly rated by many people.",
+    "order_summary": "Order summary",
+    "total": "Total",
+    "reset_order": "Reset order"
+  }
+}
