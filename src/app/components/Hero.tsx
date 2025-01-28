@@ -39,16 +39,16 @@ const Hero = () => {
 
   return (
     <>
-      <div className='mx-auto my-20 flex max-w-2xl flex-col items-center justify-center gap-4 px-4'>
+      <div className='mx-auto my-20 flex max-w-7xl flex-col items-center justify-center gap-8 px-4'>
         <LanguageSwitcher />
-        <h1 className='text-center text-3xl font-bold md:text-4xl'>
+        <h1 className='text-center text-4xl font-bold md:text-5xl'>
           {t('title')}
         </h1>
 
         <div className='mb-4 flex gap-2'>
           <button
             onClick={() => setFilter('all')}
-            className={`rounded-full px-6 py-3 text-lg ${
+            className={`rounded-md px-6 py-3 text-lg ${
               filter === 'all'
                 ? 'bg-gray-900 text-white hover:bg-gray-700'
                 : 'border border-gray-900 bg-white text-gray-900 hover:bg-gray-200'
@@ -58,7 +58,7 @@ const Hero = () => {
           </button>
           <button
             onClick={() => setFilter('food')}
-            className={`flex flex-col items-center gap-1 rounded-full px-6 py-3 text-lg md:flex-row ${
+            className={`flex flex-col items-center gap-1 rounded-md px-6 py-3 text-lg md:flex-row ${
               filter === 'food'
                 ? 'bg-gray-900 text-white hover:bg-gray-700'
                 : 'border border-gray-900 bg-white text-gray-900 hover:bg-gray-200'
@@ -106,7 +106,7 @@ const Hero = () => {
           </button>
           <button
             onClick={() => setFilter('drinks')}
-            className={`flex flex-col items-center gap-1 rounded-full px-6 py-3 text-lg md:flex-row ${
+            className={`flex flex-col items-center gap-1 rounded-md px-6 py-3 text-lg md:flex-row ${
               filter === 'drinks'
                 ? 'bg-gray-900 text-white hover:bg-gray-700'
                 : 'border border-gray-900 bg-white text-gray-900 hover:bg-gray-200'
@@ -170,43 +170,33 @@ const Hero = () => {
           {filteredProducts.map((product) => (
             <div
               key={product.id}
-              className='flex flex-col items-center justify-between gap-2 rounded-lg border p-4 shadow-md'
+              className='flex flex-col items-center justify-between gap-2 rounded-lg border p-10 shadow-md'
             >
-              <div className='text-center text-lg font-bold'>
+              <div className='text-center text-3xl font-bold'>
                 {
                   product.translations[
                     locale as keyof typeof product.translations
                   ].name
                 }
               </div>
-              <div className='text-center text-base'>
+              <div className='text-center text-2xl'>
                 {product.price.toLocaleString()}đ
               </div>
               <div className='flex items-center gap-2'>
                 <button
                   onClick={() => updateQuantity(product.id, -1)}
-                  className='rounded bg-red-500 px-4 py-2 text-white hover:bg-red-900'
+                  className='rounded bg-red-500 px-4 py-2 text-2xl text-white hover:bg-red-900'
                 >
-                  <Image
-                    src='/icons/minus.svg'
-                    alt='Minus'
-                    width={24}
-                    height={24}
-                  />
+                  -
                 </button>
                 <span className='mr-1 flex w-6 justify-center text-2xl font-bold'>
                   {orderItems[product.id] || 0}
                 </span>
                 <button
                   onClick={() => updateQuantity(product.id, 1)}
-                  className='rounded bg-green-700 px-4 py-2 text-white hover:bg-green-900'
+                  className='rounded bg-green-700 px-4 py-2 text-2xl text-white hover:bg-green-900'
                 >
-                  <Image
-                    src='/icons/plus.svg'
-                    alt='Plus'
-                    width={24}
-                    height={24}
-                  />
+                  +
                 </button>
               </div>
             </div>
