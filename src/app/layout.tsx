@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import { NextIntlClientProvider } from 'next-intl'
-import { getMessages } from 'next-intl/server'
+import { getLocale, getMessages } from 'next-intl/server'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -21,11 +21,10 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
-  params: { locale },
 }: Readonly<{
   children: React.ReactNode
-  params: { locale: string }
 }>) {
+  const locale = await getLocale()
   const messages = await getMessages()
   return (
     <html lang={locale}>

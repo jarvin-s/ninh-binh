@@ -6,7 +6,12 @@ import LanguageSwitcher from './LanguageSwitcher'
 import { products } from '@/lib/products'
 import { useOrder } from '@/hooks/useOrder'
 import { calculateTotal } from '@/utils/orderCalculations'
-import Image from 'next/image'
+import { Toaster, toast } from 'react-hot-toast'
+
+type Translations = {
+  en: { name: string; description: string }
+  vn: { name: string; description: string }
+}
 
 const Hero = () => {
   const t = useTranslations('Hero')
@@ -37,8 +42,40 @@ const Hero = () => {
     return filter === 'drinks' ? isDrink : !isDrink
   })
 
+  const showToast = (message: string, type: 'success' | 'destructive') => {
+    toast(message, {
+      duration: 1500,
+      style: {
+        background: type === 'success' ? '#c3f3d7' : '#f3c3c3',
+        color: type === 'success' ? '#2e5c41' : '#a75151',
+      },
+    })
+  }
+
+  const handleUpdateQuantity = (productId: string, delta: number) => {
+    const productName = products.find((p) => p.id === productId)?.translations[
+      locale as keyof Translations
+    ].name
+    if (delta > 0) {
+      showToast(`Added ${productName}`, 'success')
+    } else {
+      showToast(`Removed ${productName}`, 'destructive')
+    }
+    updateQuantity(productId, delta)
+  }
+
   return (
     <>
+      <Toaster
+        toastOptions={{
+          success: {
+            iconTheme: {
+              primary: 'green',
+              secondary: 'white',
+            },
+          },
+        }}
+      />
       <div className='mx-auto my-20 flex max-w-7xl flex-col items-center justify-center gap-8 px-4'>
         <LanguageSwitcher />
         <h1 className='text-center text-4xl font-bold md:text-5xl'>
@@ -50,7 +87,7 @@ const Hero = () => {
             onClick={() => setFilter('all')}
             className={`rounded-md px-6 py-3 text-lg ${
               filter === 'all'
-                ? 'bg-gray-900 text-white hover:bg-gray-700'
+                ? 'border border-gray-900 bg-gray-900 text-white hover:bg-gray-700'
                 : 'border border-gray-900 bg-white text-gray-900 hover:bg-gray-200'
             }`}
           >
@@ -60,7 +97,7 @@ const Hero = () => {
             onClick={() => setFilter('food')}
             className={`flex flex-col items-center gap-1 rounded-md px-6 py-3 text-lg md:flex-row ${
               filter === 'food'
-                ? 'bg-gray-900 text-white hover:bg-gray-700'
+                ? 'border border-gray-900 bg-gray-900 text-white hover:bg-gray-700'
                 : 'border border-gray-900 bg-white text-gray-900 hover:bg-gray-200'
             }`}
           >
@@ -108,7 +145,7 @@ const Hero = () => {
             onClick={() => setFilter('drinks')}
             className={`flex flex-col items-center gap-1 rounded-md px-6 py-3 text-lg md:flex-row ${
               filter === 'drinks'
-                ? 'bg-gray-900 text-white hover:bg-gray-700'
+                ? 'border border-gray-900 bg-gray-900 text-white hover:bg-gray-700'
                 : 'border border-gray-900 bg-white text-gray-900 hover:bg-gray-200'
             }`}
           >
@@ -184,8 +221,8 @@ const Hero = () => {
               </div>
               <div className='flex items-center gap-2'>
                 <button
-                  onClick={() => updateQuantity(product.id, -1)}
-                  className='rounded bg-red-500 px-4 py-2 text-2xl text-white hover:bg-red-900'
+                  onClick={() => handleUpdateQuantity(product.id, -1)}
+                  className='rounded bg-red-500 px-4 pb-2 text-2xl text-white hover:bg-red-900'
                 >
                   -
                 </button>
@@ -193,8 +230,8 @@ const Hero = () => {
                   {orderItems[product.id] || 0}
                 </span>
                 <button
-                  onClick={() => updateQuantity(product.id, 1)}
-                  className='rounded bg-green-700 px-4 py-2 text-2xl text-white hover:bg-green-900'
+                  onClick={() => handleUpdateQuantity(product.id, 1)}
+                  className='rounded bg-green-700 px-4 pb-2 text-2xl text-white hover:bg-green-900'
                 >
                   +
                 </button>
@@ -231,7 +268,7 @@ const Hero = () => {
                 {` (${orderItems[product.id]}x)`}
               </div>
             ))}
-          <div className='fixed bottom-0 flex w-full flex-col items-center gap-4 border-t border-gray-300 bg-white p-4 shadow-lg'>
+          <div className='fixed bottom-0 flex w-full flex-col items-center gap-4 border-t border-gray-400 bg-white p-4'>
             <h1 className='text-xl font-bold md:text-2xl'>
               {t('total')}:{' '}
               <span className='text-green-600'>
