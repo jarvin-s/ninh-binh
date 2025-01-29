@@ -7,6 +7,7 @@ import { products } from '@/lib/products'
 import { useOrder } from '@/hooks/useOrder'
 import { calculateTotal } from '@/utils/orderCalculations'
 import { Toaster, toast } from 'react-hot-toast'
+import OrderModal from './OrderModal'
 
 type Translations = {
   en: { name: string; description: string }
@@ -14,10 +15,11 @@ type Translations = {
 }
 
 const Hero = () => {
-  const t = useTranslations('Hero')
+  const t = useTranslations('hero')
   const locale = useLocale()
   const { orderItems, updateQuantity, resetOrder } = useOrder()
   const [filter, setFilter] = useState<'all' | 'food' | 'drinks'>('all')
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const filteredProducts = products.filter((product) => {
     if (filter === 'all') return true
@@ -54,7 +56,7 @@ const Hero = () => {
 
   const handleUpdateQuantity = (productId: string, delta: number) => {
     const productName = products.find((p) => p.id === productId)?.translations[
-      locale as keyof Translations
+      locale === 'en' ? 'en' : 'vn'
     ].name
     if (delta > 0) {
       showToast(`Added ${productName}`, 'success')
@@ -239,15 +241,6 @@ const Hero = () => {
             </div>
           ))}
         </div>
-
-        {Object.keys(orderItems).length > 0 && (
-          <button
-            onClick={resetOrder}
-            className='w-full rounded bg-red-500 px-4 py-2 text-white hover:bg-red-900 md:w-auto'
-          >
-            {t('reset_order')}
-          </button>
-        )}
       </div>
       {Object.keys(orderItems).length > 0 && (
         <div className='w-full text-center md:w-auto'>
@@ -276,14 +269,50 @@ const Hero = () => {
               </span>
             </h1>
             <hr className='w-full border-t border-gray-200' />
-            <button
-              onClick={resetOrder}
-              className='w-full rounded bg-red-600 px-6 py-3 text-lg font-medium text-white hover:bg-red-700 md:w-auto'
-            >
-              {t('reset_order')}
-            </button>
+            <div className='flex gap-4'>
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className='w-full rounded bg-gray-900 px-6 py-3 text-lg font-medium text-white hover:bg-gray-700 md:w-auto'
+              >
+                {t('view_order')}
+              </button>
+              <button
+                onClick={resetOrder}
+                className='w-full rounded bg-red-600 px-6 py-3 text-lg font-medium text-white hover:bg-red-700 md:w-auto'
+              >
+                {t('reset_order')}
+              </button>
+            </div>
           </div>
         </div>
+      )}
+      {isModalOpen && (
+        <OrderModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+          <h2 className='mb-4 text-xl font-bold md:text-4xl'>
+            {t('order_summary')}
+          </h2>
+          {products
+            .filter((product) => orderItems[product.id])
+            .map((product) => (
+              <div key={`modal-summary-${product.id}`} className='text-lg'>
+                {
+                  product.translations[
+                    locale as keyof typeof product.translations
+                  ].name
+                }
+
+                {` (${orderItems[product.id]}x)`}
+              </div>
+            ))}
+          <div className='mt-4'>
+            <h1 className='text-xl font-bold md:text-2xl'>
+              {t('total')}:{' '}
+              <span className='text-green-600'>
+                {calculateTotal(orderItems).toLocaleString()}đ
+              </span>
+            </h1>
+          </div>
+        </OrderModal>
       )}
     </>
   )

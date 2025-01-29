@@ -1,9 +1,12 @@
 {
-  "Hero": {
+  "hero": {
     "title": "Quán Cơm Ninh Bình",
     "description": "Quán Cơm Ninh Bình là quán cơm đặc sản của Ninh Bình, được nhiều người yêu thích và đánh giá cao.",
     "order_summary": "Tổng hợp đơn hàng",
     "total": "Tổng cộng",
-    "reset_order": "Xóa đơn hàng"
+    "reset_order": "Xóa đơn hàng",
+    "view_order": "Xem đơn hàng",
+    "added_product": "Thêm {{productName}}",
+    "removed_product": "Xóa {{productName}}"
   }
 }
