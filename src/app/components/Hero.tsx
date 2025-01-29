@@ -59,9 +59,9 @@ const Hero = () => {
       locale === 'en' ? 'en' : 'vn'
     ].name
     if (delta > 0) {
-      showToast(`Added ${productName}`, 'success')
+      showToast(`${t('added-product')} ${productName}`, 'success')
     } else {
-      showToast(`Removed ${productName}`, 'destructive')
+      showToast(`${t('removed-product')} ${productName}`, 'destructive')
     }
     updateQuantity(productId, delta)
   }
@@ -205,11 +205,11 @@ const Hero = () => {
           </button>
         </div>
 
-        <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
+        <div className='grid min-w-full grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
           {filteredProducts.map((product) => (
             <div
               key={product.id}
-              className='flex flex-col items-center justify-between gap-2 rounded-lg border p-10 shadow-md'
+              className='flex min-h-[300px] flex-col items-center justify-between gap-2 rounded-lg border p-10 shadow-md'
             >
               <div className='text-center text-3xl font-bold'>
                 {
@@ -261,7 +261,7 @@ const Hero = () => {
                 {` (${orderItems[product.id]}x)`}
               </div>
             ))}
-          <div className='fixed bottom-0 flex w-full flex-col items-center gap-4 border-t border-gray-400 bg-white p-4'>
+          <div className='fixed bottom-0 flex w-full flex-col items-center gap-4 border-t border-gray-200 bg-white p-4'>
             <h1 className='text-xl font-bold md:text-2xl'>
               {t('total')}:{' '}
               <span className='text-green-600'>
@@ -269,7 +269,7 @@ const Hero = () => {
               </span>
             </h1>
             <hr className='w-full border-t border-gray-200' />
-            <div className='flex gap-4'>
+            <div className='flex w-full flex-col justify-center gap-4 md:flex-row'>
               <button
                 onClick={() => setIsModalOpen(true)}
                 className='w-full rounded bg-gray-900 px-6 py-3 text-lg font-medium text-white hover:bg-gray-700 md:w-auto'

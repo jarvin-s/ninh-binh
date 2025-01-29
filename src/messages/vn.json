@@ -6,7 +6,7 @@
     "total": "Tổng cộng",
     "reset_order": "Xóa đơn hàng",
     "view_order": "Xem đơn hàng",
-    "added_product": "Thêm {{productName}}",
-    "removed_product": "Xóa {{productName}}"
+    "added-product": "Thêm",
+    "removed-product": "Xóa"
   }
 }

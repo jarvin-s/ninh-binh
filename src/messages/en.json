@@ -6,7 +6,7 @@
     "total": "Total",
     "reset_order": "Reset order",
     "view_order": "View order",
-    "added_product": "Added {{productName}}",
-    "removed_product": "Removed {{productName}}"
+    "added-product": "Added",
+    "removed-product": "Removed"
   }
 }
