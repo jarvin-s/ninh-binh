@@ -205,7 +205,7 @@ const Hero = () => {
           </button>
         </div>
 
-        <div className='grid min-w-full grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
+        <div className='mb-40 grid min-w-full grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
           {filteredProducts.map((product) => (
             <div
               key={product.id}
@@ -224,7 +224,7 @@ const Hero = () => {
               <div className='flex items-center gap-2'>
                 <button
                   onClick={() => handleUpdateQuantity(product.id, -1)}
-                  className='rounded bg-red-500 px-4 pb-2 text-2xl text-white hover:bg-red-900'
+                  className='rounded bg-red-500 px-4 pb-2 text-4xl text-white hover:bg-red-900'
                 >
                   -
                 </button>
@@ -233,7 +233,7 @@ const Hero = () => {
                 </span>
                 <button
                   onClick={() => handleUpdateQuantity(product.id, 1)}
-                  className='rounded bg-green-700 px-4 pb-2 text-2xl text-white hover:bg-green-900'
+                  className='rounded bg-green-700 px-4 pb-2 text-4xl text-white hover:bg-green-900'
                 >
                   +
                 </button>
@@ -288,24 +288,32 @@ const Hero = () => {
       )}
       {isModalOpen && (
         <OrderModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-          <h2 className='mb-4 text-xl font-bold md:text-4xl'>
-            {t('order_summary')}
-          </h2>
+          <h2 className='mb-4 text-3xl font-bold'>{t('order_summary')}</h2>
           {products
             .filter((product) => orderItems[product.id])
             .map((product) => (
-              <div key={`modal-summary-${product.id}`} className='text-lg'>
-                {
-                  product.translations[
-                    locale as keyof typeof product.translations
-                  ].name
-                }
-
-                {` (${orderItems[product.id]}x)`}
+              <div
+                key={`modal-summary-${product.id}`}
+                className='flex text-sm md:text-xl'
+              >
+                <div className='flex'>
+                  {
+                    product.translations[
+                      locale as keyof typeof product.translations
+                    ].name
+                  }
+                  <span className='ml-1 font-bold'>{`(${orderItems[product.id]}x)`}</span>
+                </div>
+                <div className='ml-auto font-bold'>
+                  {` ${orderItems[product.id] * product.price}đ`}
+                </div>
               </div>
             ))}
           <div className='mt-4'>
-            <h1 className='text-xl font-bold md:text-2xl'>
+            <hr className='w-full border-t border-gray-200' />
+          </div>
+          <div className='mt-4'>
+            <h1 className='text-xl text-center font-bold md:text-2xl'>
               {t('total')}:{' '}
               <span className='text-green-600'>
                 {calculateTotal(orderItems).toLocaleString()}đ
