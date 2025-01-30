@@ -225,30 +225,16 @@ export const products: Product[] = [
         },
     },
     {
-        id: 'sting-gold',
+        id: 'sting',
         price: 15000,
         translations: {
             en: {
-                name: 'Sting Gold Rush',
-                description: 'Energy drink with golden apple flavor',
+                name: 'Sting',
+                description: 'Energy drink',
             },
             vn: {
-                name: 'Sting Hương Táo',
-                description: 'Nước tăng lực hương táo',
-            },
-        },
-    },
-    {
-        id: 'sting-red',
-        price: 15000,
-        translations: {
-            en: {
-                name: 'Sting Red Ginseng',
-                description: 'Energy drink with red ginseng',
-            },
-            vn: {
-                name: 'Sting Dâu',
-                description: 'Nước tăng lực hương dâu',
+                name: 'Sting',
+                description: 'Nước tăng lực',
             },
         },
     },
@@ -379,44 +365,16 @@ export const products: Product[] = [
         },
     },
     {
-        id: 'soju-jinro',
+        id: 'alcohol',
         price: 100000,
         translations: {
             en: {
-                name: 'Soju Jinro Chamisul',
-                description: 'Korean rice wine',
+                name: 'Soju/Vodka',
+                description: 'Soju/Vodka',
             },
             vn: {
-                name: 'Rượu Soju Jinro Chamisul',
-                description: 'Rượu gạo Hàn Quốc',
-            },
-        },
-    },
-    {
-        id: 'nep-moi',
-        price: 100000,
-        translations: {
-            en: {
-                name: 'Nep Moi Wine',
-                description: 'Vietnamese rice wine',
-            },
-            vn: {
-                name: 'Rượu Nếp Mới',
-                description: 'Rượu gạo Việt Nam',
-            },
-        },
-    },
-    {
-        id: 'mens-vodka',
-        price: 100000,
-        translations: {
-            en: {
-                name: "Men's Vodka",
-                description: 'Vietnamese vodka',
-            },
-            vn: {
-                name: 'Rượu Vodka Men',
-                description: 'Rượu vodka Việt Nam',
+                name: 'Rượu Soju/Vodka',
+                description: 'Rượu Soju/Vodka',
             },
         },
     },
