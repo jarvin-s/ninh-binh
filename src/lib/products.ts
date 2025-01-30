@@ -128,7 +128,7 @@ export const products: Product[] = [
     },
     {
         id: 'beef-stir-fried-noodle-big',
-        price: 85000,
+        price: 100000,
         translations: {
             en: {
                 name: 'Beef stir fried noodle (big)',
