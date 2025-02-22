@@ -71,30 +71,16 @@ export const products: Product[] = [
         },
     },
     {
-        id: 'chicken-rice-small',
-        price: 65000,
-        translations: {
-            en: {
-                name: 'Chicken rice (small)',
-                description: 'Small portion of chicken rice',
-            },
-            vn: {
-                name: 'Cơm gà (nhỏ)',
-                description: 'Phần cơm gà nhỏ',
-            },
-        },
-    },
-    {
-        id: 'chicken-rice-big',
+        id: 'chicken-rice',
         price: 75000,
         translations: {
             en: {
-                name: 'Chicken rice (big)',
-                description: 'Big portion of chicken rice',
+                name: 'Chicken rice',
+                description: 'Chicken rice',
             },
             vn: {
-                name: 'Cơm gà (lớn)',
-                description: 'Phần cơm gà lớn',
+                name: 'Cơm gà',
+                description: 'Cơm gà',
             },
         },
     },
